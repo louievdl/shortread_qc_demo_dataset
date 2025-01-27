@@ -1,0 +1,144 @@
+# 20241129
+# load 5 PE metagenomic sequencing samples - should show broader GC distribution. Maybe also reduction in sequencing quality
+
+mkdir ERP115334_lawleymetag_qc_demo
+cd ERP115334_lawleymetag_qc_demo/
+mkdir data scripts results
+(cd data && ./00_download)
+
+salloc --partition=xxxx --ntasks=1 --cpus-per-task=8 --mem=40G --x11=first
+srun --ntasks=1 --cpus-per-task=8 --pty /bin/bash
+
+(cd ../data && du -sh) # 14G
+
+
+
+## take first 100k from each file
+#mkdir ../data_100k
+#for i in ../data/*.fastq.gz; do zcat $i | head -n 200000 | gzip > ../data_100k/$(basename $i); echo $i; done
+
+## do fastqc
+#mkdir ../qc_100k
+#module load fastqc/0.11.9
+#fastqc --outdir ../qc_100k ../data_100k/*.gz
+#module unload fastqc
+
+#module load multiqc/1.12
+#multiqc --outdir ../qc_100k ../qc_100k
+#module unload multiqc
+## very little duplication in 100k reads per sample
+
+mkdir ../qc_all
+module load fastqc/0.11.9
+fastqc -t 8 --outdir ../qc_all ../data/*.gz
+module unload fastqc
+
+module load multiqc/1.12
+multiqc --outdir ../qc_all ../qc_all
+module unload multiqc
+
+# 20241204 tried to download 15 more files. ERR13330913_R1.fastq.gz failed, as did 3 other files.
+# however, did qc as above on the files that did download successfully. found one more sample passing GC content
+
+# 20250122 after downloading many filesand periodically checking fastqc results, 8 were identified with good characteristics
+# downloaded R2s and did QC on all
+
+srun --partition=xxxxx --ntasks=1 --cpus-per-task=8 --mem=40G --pty /bin/bash
+hostname
+
+mkdir ../qc_chosen
+module load fastqc/0.11.9
+fastqc -t 8 --outdir ../qc_chosen ../data/*.gz
+module unload fastqc
+
+module load multiqc/1.12
+multiqc --outdir ../qc_chosen ../qc_chosen
+module unload multiqc
+
+# trim to length 148, removing from 3p end, removing reads shorter than 148. R1 & R2s will stay together
+module load trimgalore/0.6.6
+mkdir ../data/trim_148
+trim_galore --hardtrim5 148 --length 148 --output_dir ../data/trim_148 --cores 8 --paired ../data/*.gz # creates filenames of the form ERRnnnn_Rn.148bp_5prime.fq.gz
+module unload trimgalore
+
+# change names
+for i in ../data/trim_148/*.gz; do
+  j=$(echo $i | perl -ne 'chomp; s/.148bp_5prime//; print')
+  echo "$i -> $j"
+  mv $i $j
+done
+
+# redo fastqc
+mkdir ../qc_chosen_148b
+module load fastqc/0.11.9
+fastqc -t 8 --outdir ../qc_chosen_148b ../data/trim_148/*.gz
+module unload fastqc
+
+module load multiqc/1.12
+multiqc --outdir ../qc_chosen_148b ../qc_chosen_148b
+module unload multiqc
+# only remaining problem, some sequences not full length
+
+
+# also try ordinary trimming
+module load trimgalore/0.6.6
+mkdir ../data/trim_default
+trim_galore --output_dir ../data/trim_default --cores 8 --paired ../data/*.gz
+module unload trimgalore
+
+# 20250123 redo fastqc
+mkdir ../qc_chosen_default
+module load fastqc/0.11.9
+fastqc -t 8 --outdir ../qc_chosen_default ../data/trim_default/*.gz
+module unload fastqc
+
+module load multiqc/1.12
+multiqc --outdir ../qc_chosen_default ../qc_chosen_default
+module unload multiqc
+
+
+# 20250127 try subsampling on the raw data.
+# FastQC Issues:
+# differing average GC content
+# differing tail end GC content
+# differing lengths
+# differing copy number?
+
+mkdir -p ../data/subsample
+for i in ../data/*.gz; do
+  echo $i
+  zcat $i | head -n 1000000 | gzip > ../data/subsample/$(basename $i) # 0.25M sequences per file, 0.5M per sample
+done
+du -sh ../data/subsample/ # 355M
+
+# test time taken to do QC, esp trimming, using single cpu.
+srun --partition=xxxxx --ntasks=1 --cpus-per-task=1 --mem=4G --pty /bin/bash
+hostname
+
+mkdir ../qc_subsample
+module load fastqc/0.11.9
+time fastqc --outdir ../qc_subsample ../data/subsample/*.gz # real 1m28s
+module unload fastqc
+
+module load multiqc/1.12
+time multiqc --outdir ../qc_subsample ../qc_subsample # real 26s
+module unload multiqc
+
+# trim
+module load trimgalore/0.6.6
+mkdir ../data/subsample_trim
+time trim_galore -q 30 --output_dir ../data/subsample_trim --paired ../data/subsample/*.gz # 10m57s
+module unload trimgalore
+
+# redo fastqc
+mkdir ../qc_subsample_trim
+module load fastqc/0.11.9
+fastqc --outdir ../qc_subsample_trim ../data/subsample_trim/*.gz
+module unload fastqc
+
+module load multiqc/1.12
+multiqc --outdir ../qc_subsample_trim ../qc_subsample_trim
+module unload multiqc
+# only remaining problem, some sequences not full length
+
+

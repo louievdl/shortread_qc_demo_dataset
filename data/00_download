@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+# from SRA-explorer, first 5 samples from a search for ERP115334; samples from Shao et al, Nature 2019 on BabyBiome. metadata unknown.
+# 20250122 - only uncommenting samples with a nice GC curve that passes fastqc check
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/095/ERR13331395/ERR13331395_1.fastq.gz -o ERR13331395_R1.fastq.gz # nice homogeneous GC
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/095/ERR13331395/ERR13331395_2.fastq.gz -o ERR13331395_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/039/ERR13330939/ERR13330939_1.fastq.gz -o ERR13330939_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/039/ERR13330939/ERR13330939_2.fastq.gz -o ERR13330939_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/037/ERR13331437/ERR13331437_1.fastq.gz -o ERR13331437_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/037/ERR13331437/ERR13331437_2.fastq.gz -o ERR13331437_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/046/ERR13330946/ERR13330946_1.fastq.gz -o ERR13330946_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/046/ERR13330946/ERR13330946_2.fastq.gz -o ERR13330946_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/069/ERR13330969/ERR13330969_1.fastq.gz -o ERR13330969_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/069/ERR13330969/ERR13330969_2.fastq.gz -o ERR13330969_R2.fastq.gz
+
+# 20241204 next 15 samples, downloaded later, lookng for multiple samples with homogeneous GC
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/086/ERR13331086/ERR13331086_1.fastq.gz -o ERR13331086_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/086/ERR13331086/ERR13331086_2.fastq.gz -o ERR13331086_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/064/ERR13331264/ERR13331264_1.fastq.gz -o ERR13331264_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/064/ERR13331264/ERR13331264_2.fastq.gz -o ERR13331264_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/051/ERR13330951/ERR13330951_1.fastq.gz -o ERR13330951_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/051/ERR13330951/ERR13330951_2.fastq.gz -o ERR13330951_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/043/ERR13331443/ERR13331443_1.fastq.gz -o ERR13331443_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/043/ERR13331443/ERR13331443_2.fastq.gz -o ERR13331443_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/033/ERR13330933/ERR13330933_1.fastq.gz -o ERR13330933_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/033/ERR13330933/ERR13330933_2.fastq.gz -o ERR13330933_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/005/ERR13331505/ERR13331505_1.fastq.gz -o ERR13331505_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/005/ERR13331505/ERR13331505_2.fastq.gz -o ERR13331505_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/060/ERR13331560/ERR13331560_1.fastq.gz -o ERR13331560_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/060/ERR13331560/ERR13331560_2.fastq.gz -o ERR13331560_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/020/ERR13330920/ERR13330920_1.fastq.gz -o ERR13330920_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/020/ERR13330920/ERR13330920_2.fastq.gz -o ERR13330920_R2.fastq.gz
+####curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/013/ERR13330913/ERR13330913_1.fastq.gz -o ERR13330913_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/013/ERR13330913/ERR13330913_2.fastq.gz -o ERR13330913_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/073/ERR13331273/ERR13331273_1.fastq.gz -o ERR13331273_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/073/ERR13331273/ERR13331273_2.fastq.gz -o ERR13331273_R2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/015/ERR13331515/ERR13331515_1.fastq.gz -o ERR13331515_R1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/015/ERR13331515/ERR13331515_2.fastq.gz -o ERR13331515_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/017/ERR13331217/ERR13331217_1.fastq.gz -o ERR13331217_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/017/ERR13331217/ERR13331217_2.fastq.gz -o ERR13331217_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/038/ERR13331038/ERR13331038_1.fastq.gz -o ERR13331038_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/038/ERR13331038/ERR13331038_2.fastq.gz -o ERR13331038_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/098/ERR13330998/ERR13330998_1.fastq.gz -o ERR13330998_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/098/ERR13330998/ERR13330998_2.fastq.gz -o ERR13330998_R2.fastq.gz
+####curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/062/ERR13331362/ERR13331362_1.fastq.gz -o ERR13331362_R1.fastq.gz
+####curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/062/ERR13331362/ERR13331362_2.fastq.gz -o ERR13331362_R2.fastq.gz
+
+# note, those above with #### failed to download after repeated efforts.
+
+## alt method for 3 files
+#wget -O ERR13330913_R1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/013/ERR13330913/ERR13330913_1.fastq.gz
+#wget -O ERR13331362_R1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/062/ERR13331362/ERR13331362_1.fastq.gz
+#wget -O ERR13331362_R2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/062/ERR13331362/ERR13331362_2.fastq.gz
+# ftp server didn't respond to wget for first file either.
+
+## NOTE. ONLY DOWNLOAD ONE OF EACH PAIR AND TEST BEFORE DOWNLOADING THE OTHER.
+
+## 20241205 20 more downloads, single ends this time; total of 40 donwloaded
+
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/045/ERR13331545/ERR13331545_1.fastq.gz -o ERR13331545_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/045/ERR13331545/ERR13331545_2.fastq.gz -o ERR13331545_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/042/ERR13331442/ERR13331442_1.fastq.gz -o ERR13331442_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/042/ERR13331442/ERR13331442_2.fastq.gz -o ERR13331442_R2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/090/ERR13331290/ERR13331290_1.fastq.gz -o ERR13331290_R1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/090/ERR13331290/ERR13331290_2.fastq.gz -o ERR13331290_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/020/ERR13331020/ERR13331020_1.fastq.gz -o ERR13331020_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/020/ERR13331020/ERR13331020_2.fastq.gz -o ERR13331020_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/064/ERR13331464/ERR13331464_1.fastq.gz -o ERR13331464_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/064/ERR13331464/ERR13331464_2.fastq.gz -o ERR13331464_R2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/082/ERR13331382/ERR13331382_1.fastq.gz -o ERR13331382_R1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/082/ERR13331382/ERR13331382_2.fastq.gz -o ERR13331382_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/094/ERR13331394/ERR13331394_1.fastq.gz -o ERR13331394_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/094/ERR13331394/ERR13331394_2.fastq.gz -o ERR13331394_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/030/ERR13331230/ERR13331230_1.fastq.gz -o ERR13331230_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/030/ERR13331230/ERR13331230_2.fastq.gz -o ERR13331230_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/096/ERR13331096/ERR13331096_1.fastq.gz -o ERR13331096_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/096/ERR13331096/ERR13331096_2.fastq.gz -o ERR13331096_R2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/014/ERR13331214/ERR13331214_1.fastq.gz -o ERR13331214_R1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/014/ERR13331214/ERR13331214_2.fastq.gz -o ERR13331214_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/038/ERR13331138/ERR13331138_1.fastq.gz -o ERR13331138_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/038/ERR13331138/ERR13331138_2.fastq.gz -o ERR13331138_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/057/ERR13331157/ERR13331157_1.fastq.gz -o ERR13331157_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/057/ERR13331157/ERR13331157_2.fastq.gz -o ERR13331157_R2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/053/ERR13330953/ERR13330953_1.fastq.gz -o ERR13330953_R1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/053/ERR13330953/ERR13330953_2.fastq.gz -o ERR13330953_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/071/ERR13331271/ERR13331271_1.fastq.gz -o ERR13331271_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/071/ERR13331271/ERR13331271_2.fastq.gz -o ERR13331271_R2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/037/ERR13331137/ERR13331137_1.fastq.gz -o ERR13331137_R1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/037/ERR13331137/ERR13331137_2.fastq.gz -o ERR13331137_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/053/ERR13331053/ERR13331053_1.fastq.gz -o ERR13331053_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/053/ERR13331053/ERR13331053_2.fastq.gz -o ERR13331053_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/044/ERR13331144/ERR13331144_1.fastq.gz -o ERR13331144_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/044/ERR13331144/ERR13331144_2.fastq.gz -o ERR13331144_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/058/ERR13331358/ERR13331358_1.fastq.gz -o ERR13331358_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/058/ERR13331358/ERR13331358_2.fastq.gz -o ERR13331358_R2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/032/ERR13331032/ERR13331032_1.fastq.gz -o ERR13331032_R1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/032/ERR13331032/ERR13331032_2.fastq.gz -o ERR13331032_R2.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/083/ERR13331483/ERR13331483_1.fastq.gz -o ERR13331483_R1.fastq.gz
+#curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR133/083/ERR13331483/ERR13331483_2.fastq.gz -o ERR13331483_R2.fastq.gz
+
+
+
